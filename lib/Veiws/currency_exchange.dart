@@ -1,39 +1,20 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mizan_app/constants/colors.dart';
 import 'package:flutter_mizan_app/constants/contries.dart';
 import 'package:flutter_mizan_app/models/constant.dart';
 // import 'package:mizan_app/models/constant.dart';
 // import 'package:mizan_app/models/prmary.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class CurrencyExchange extends StatefulWidget {
+  CurrencyExchange({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CurrencyExchange> createState() => _CurrencyExchangeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CurrencyExchangeState extends State<CurrencyExchange> {
   int index = 0;
-
-  final kPrimaryColor = const Color(0xFFFEF3E2);
-
-  final kPrimaryColor2 = const Color(0xFFBEC6A0);
-
-  final kPrimaryColor3 = const Color(0xFF708871);
-
-  final kPrimaryColor4 = const Color(0xFF606676);
-
-  final kfontStyle1 = "Handjet";
-
-  final kfontStyle2 = "Lemonada";
-
-  final kfontStyle3 = "ReadexPro";
-
-  final kfontStyle4 = "ReemKufi";
-
-  final kfontStyle5 = "Gulzar";
-
   @override
   Widget build(BuildContext context) {
     ScreenSize.intial(context);
@@ -72,9 +53,9 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   width: ScreenSize.width / 1.2,
                   height: 100,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: kPrimaryColor3,
-                    borderRadius: const BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(10),
                       bottomLeft: Radius.circular(30),

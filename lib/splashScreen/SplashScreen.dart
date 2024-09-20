@@ -38,7 +38,7 @@ class SplashScreen extends StatelessWidget {
           ],
         ),
       ),
-      nextScreen: Services.containKey(key: 'email') ? const HomePage() : const LoginPage(),
+      nextScreen: Services.containKey(key: 'email') ?  HomePage() : const LoginPage(),
       backgroundColor: Colors.black,
       splashTransition: SplashTransition.scaleTransition,
       curve: Curves.easeOutBack,

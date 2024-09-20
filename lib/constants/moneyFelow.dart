@@ -1,5 +1,5 @@
-
-Map<String, double> moneyFelow = {
+// ignore_for_file: prefer_const_constructors
+Map<String, double> moneyFelow = <String, double>{
   'Egypt (EGP)': 48.44,
   'Saudi Arabia (SAR)': 3.75,
   'UAE (AED)': 3.67,

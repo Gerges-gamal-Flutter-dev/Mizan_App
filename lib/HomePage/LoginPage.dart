@@ -271,7 +271,7 @@ class _LoginPageState extends State<LoginPage> {
       // الانتقال إلى الصفحة الرئيسية بعد النجاح
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } else {
       showSnackBar(context, "من فضلك تأكد من صحة ادخال البيانات");
