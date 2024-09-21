@@ -1,38 +1,39 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter_mizan_app/Cache/cache_helper.dart';
-import 'package:flutter_mizan_app/HomePage/HomePage.dart';
-import 'package:flutter_mizan_app/HomePage/signup.dart';
-import 'package:flutter_mizan_app/classes/ResponsiveScreen.dart';
-import 'package:flutter_mizan_app/constants/colors.dart';
-import 'package:flutter_mizan_app/constants/contries.dart';
+import 'package:flutter_mizan_app/Cache/cache_helper.dart'; // مكتبة لحفظ البيانات في التخزين المؤقت
+import 'package:flutter_mizan_app/HomePage/HomePage.dart'; // صفحة الرئيسية
+import 'package:flutter_mizan_app/HomePage/signup.dart'; // صفحة التسجيل
+import 'package:flutter_mizan_app/classes/ResponsiveScreen.dart'; // مكتبة لعمل الشاشة مستجيبة
+import 'package:flutter_mizan_app/constants/colors.dart'; // مكتبة الألوان الثابتة
+import 'package:flutter_mizan_app/constants/contries.dart'; // مكتبة أسماء الدول
 
+// إنشاء واجهة تسجيل الدخول
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState(); // ربط الصفحة بحالتها
 }
 
 class _LoginPageState extends State<LoginPage> {
   // التحكم في الإدخال للحقول النصية
-  final TextEditingController _name = TextEditingController();
-  final TextEditingController _email = TextEditingController();
+  final TextEditingController _name = TextEditingController(); // اسم المستخدم
+  final TextEditingController _email = TextEditingController(); // البريد الإلكتروني
   final TextEditingController _monthlySalaryController =
-      TextEditingController(); // تمت إضافة هذا
+      TextEditingController(); // الراتب الشهري
   final TextEditingController _bankIncomeController =
-      TextEditingController(); // تمت إضافة هذا
+      TextEditingController(); // الرصيد البنكي
 
-  // مفتاح النموذج للتحقق من المدخلات
+  // مفتاح النموذج للتحقق من صحة المدخلات
   final _key = GlobalKey<FormState>();
 
   // متغيرات لتخزين القيم العددية
-  num _monthlySalary = 0;
-  num _bankIncome = 0;
+  num _monthlySalary = 0; // الراتب الشهري
+  num _bankIncome = 0; // الرصيد البنكي
 
-  // حالات إظهار/إخفاء القيم
-  bool _isActiveMoney = false;
-  bool _isActiveBank = false;
+  // حالات إظهار/إخفاء قيم الحقول
+  bool _isActiveMoney = false; // إخفاء/إظهار الراتب
+  bool _isActiveBank = false; // إخفاء/إظهار الرصيد البنكي
 
   // الدولة المختارة
   String? _country;
@@ -47,20 +48,20 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  // تغيير حالة عرض/إخفاء الراتب الشهري
+  // تغيير حالة إظهار/إخفاء الراتب الشهري
   void displayMonthSalary() {
     if (_monthlySalary != 0) {
       setState(() {
-        _isActiveMoney = !_isActiveMoney;
+        _isActiveMoney = !_isActiveMoney; // قلب حالة الإظهار
       });
     }
   }
 
-  // تغيير حالة عرض/إخفاء الرصيد البنكي
+  // تغيير حالة إظهار/إخفاء الرصيد البنكي
   void displayBankIncome() {
     if (_bankIncome != 0) {
       setState(() {
-        _isActiveBank = !_isActiveBank;
+        _isActiveBank = !_isActiveBank; // قلب حالة الإظهار
       });
     }
   }
@@ -70,113 +71,109 @@ class _LoginPageState extends State<LoginPage> {
     // إعداد الشاشة للتصميم المستجيب
     ResponsiveScreen.initializeScreen(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, // لون الخلفية
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white, // لون خلفية AppBar
         title: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'ميزان',
+            'ميزان', // نص العنوان
             style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25),
+                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25), // تنسيق النص
           ),
         ),
-        centerTitle: true,
+        centerTitle: true, // توسيط العنوان
       ),
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( // تمكين التمرير العمودي
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0), // إضافة مسافة حول المحتوى
           child: Form(
-            key: _key,
+            key: _key, // مفتاح النموذج للتحقق من المدخلات
             child: Column(
               children: [
                 // صورة متحركة في أعلى الصفحة
                 Container(
-                  height: ResponsiveScreen.screen_height * 0.30,
-                  width: double.infinity,
+                  height: ResponsiveScreen.screen_height * 0.30, // 30% من ارتفاع الشاشة
+                  width: double.infinity, // ملء العرض
                   color: Colors.white,
-                  child: Image.asset("assets/images/login.gif"),
+                  child: Image.asset("assets/images/login.gif"), // صورة متحركة
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 10), // مسافة بين العناصر
 
                 // حقل إدخال الاسم
                 CustomTextField(
-                  obscureText: true, // لا حاجة لإخفاء النص هنا
+                  obscureText: true, // النص غير مخفي (حقل غير سري)
                   validator: (value) {
-                    return validate(value!, 'Name', 2, 20);
+                    return validate(value!, 'Name', 2, 20); // التحقق من صحة الاسم
                   },
-                  controller: _name,
-                  labelText: "الاسم",
+                  controller: _name, // التحكم في الحقل
+                  labelText: "الاسم", // نص التسمية
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 10), // مسافة بين العناصر
 
                 // حقل إدخال الايميل
                 CustomTextField(
-                  obscureText: true, // لا حاجة لإخفاء النص هنا
+                  obscureText: true, // النص غير مخفي (حقل غير سري)
                   validator: (value) {
-                    return validate(value!, 'Email', 10, 20);
+                    return validate(value!, 'Email', 10, 20); // التحقق من صحة البريد الإلكتروني
                   },
-                  controller: _email,
-                  labelText: "الايميل",
+                  controller: _email, // التحكم في الحقل
+                  labelText: "الايميل", // نص التسمية
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 10), // مسافة بين العناصر
 
-                // حقل إدخال الراتب الشهري مع خيار عرض/إخفاء
+                // حقل إدخال الراتب الشهري مع خيار إظهار/إخفاء
                 CustomTextField(
-                  keyboardType: TextInputType.number,
-                  icon: Icons.visibility,
-                  obscureText: _isActiveMoney,
-                  onPressed:
-                      displayMonthSalary, // تغيير الحالة عند الضغط على الأيقونة
+                  keyboardType: TextInputType.number, // نوع الإدخال رقمي
+                  icon: Icons.visibility, // أيقونة الإظهار
+                  obscureText: _isActiveMoney, // إخفاء النص بناءً على الحالة
+                  onPressed: displayMonthSalary, // عند الضغط على الأيقونة
                   validator: (value) {
-                    return validate(value!, 'monthlySalary', 0, 1000000);
+                    return validate(value!, 'monthlySalary', 0, 1000000); // التحقق من صحة المدخل
                   },
-                  controller: _monthlySalaryController,
+                  controller: _monthlySalaryController, // التحكم في الحقل
                   onChanged: (newValue) {
                     try {
-                      _monthlySalary = num.parse(newValue);
+                      _monthlySalary = num.parse(newValue); // تحويل المدخل إلى رقم
                     } catch (e) {
-                      showSnackBar(
-                          context, "من فضلك قم بأدخال أرقام في هذه الحقل");
+                      showSnackBar(context, "من فضلك قم بأدخال أرقام في هذه الحقل"); // عرض رسالة خطأ
                     }
                   },
-                  labelText: "الراتب الشهري",
+                  labelText: "الراتب الشهري", // نص التسمية
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 10), // مسافة بين العناصر
 
-                // حقل إدخال الرصيد البنكي مع خيار عرض/إخفاء
+                // حقل إدخال الرصيد البنكي مع خيار إظهار/إخفاء
                 CustomTextField(
-                  keyboardType: TextInputType.number,
-                  icon: Icons.visibility,
-                  obscureText: _isActiveBank,
-                  onPressed:
-                      displayBankIncome, // تغيير الحالة عند الضغط على الأيقونة
+                  keyboardType: TextInputType.number, // نوع الإدخال رقمي
+                  icon: Icons.visibility, // أيقونة الإظهار
+                  obscureText: _isActiveBank, // إخفاء النص بناءً على الحالة
+                  onPressed: displayBankIncome, // عند الضغط على الأيقونة
                   validator: (value) {
-                    return validate(value!, 'bankIncome', 0, 1000000);
+                    return validate(value!, 'bankIncome', 0, 1000000); // التحقق من صحة المدخل
                   },
-                  controller: _bankIncomeController,
+                  controller: _bankIncomeController, // التحكم في الحقل
                   onChanged: (newValue) {
                     try {
-                      _bankIncome = num.parse(newValue);
+                      _bankIncome = num.parse(newValue); // تحويل المدخل إلى رقم
                     } catch (e) {
-                      showSnackBar(
-                          context, "من فضلك قم بأدخال أرقام في هذه الحقل");
+                      showSnackBar(context, "من فضلك قم بأدخال أرقام في هذه الحقل"); // عرض رسالة خطأ
                     }
                   },
-                  labelText: "الرصيد البنكي",
+                  labelText: "الرصيد البنكي", // نص التسمية
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 10), // مسافة بين العناصر
 
                 // اختيار الدولة من قائمة منسدلة
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(color: Colors.grey.shade300),
-                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.symmetric(horizontal: 10), // إضافة مسافة داخلية
+                  decoration: BoxDecoration(color: Colors.grey.shade300), // تنسيق الخلفية
+                  alignment: Alignment.topLeft, // محاذاة النص لليسار
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween, // توزيع العناصر بالتساوي
                     children: [
                       const Text(
-                        "أختر بلدك",
+                        "أختر بلدك", // نص العنوان
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
@@ -185,10 +182,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       CustomDropList(
-                        value: _country,
+                        value: _country, // القيمة الحالية
                         valueChanged: (String value) {
                           setState(() {
-                            _country = value;
+                            _country = value; // تغيير الدولة المختارة
                           });
                         },
                         list: items1, // قائمة الدول
@@ -196,28 +193,28 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 20), // مسافة بين العناصر
 
                 // زر التسجيل
                 SizedBox(
-                  height: ResponsiveScreen.screen_height * 0.07,
-                  width: ResponsiveScreen.screen_width * 0.30,
+                  height: ResponsiveScreen.screen_height * 0.07, // 7% من ارتفاع الشاشة
+                  width: ResponsiveScreen.screen_width * 0.30, // 30% من عرض الشاشة
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: kPrimaryColor3,
-                      foregroundColor: Colors.white,
+                      backgroundColor: kPrimaryColor3, // لون خلفية الزر
+                      foregroundColor: Colors.white, // لون النص
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(8.0), // شكل الزر
                       ),
                     ),
-                    onPressed: _login,
+                    onPressed: _login, // عند الضغط على الزر
                     child: const Text(
-                      "تسجيل",
+                      "تسجيل", // نص الزر
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 20, // حجم الخط
+                        fontWeight: FontWeight.bold, // سماكة الخط
                         fontFamily: 'ReadexPro',
-                        color: Colors.black,
+                        color: Colors.black, // لون النص
                       ),
                     ),
                   ),
@@ -257,6 +254,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  //Functions 
   // عملية تسجيل الدخول
   void _login() {
     if (_key.currentState!.validate() && _country != null) {
@@ -278,6 +276,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+//functions
 String? validate(String value, type, [int min = 0, int max = 0]) {
   if (value.isEmpty) {
     return "This field is required";
@@ -300,6 +299,7 @@ String? validate(String value, type, [int min = 0, int max = 0]) {
   return null;
 }
 
+//Classes for SnackBar
 void showSnackBar(BuildContext context, String content) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
@@ -337,6 +337,7 @@ Widget alert(
   );
 }
 
+// Classes for Custom DropList
 class CustomDropList extends StatelessWidget {
   final String? value;
   final List<String> list;
