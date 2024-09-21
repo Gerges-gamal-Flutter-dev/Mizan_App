@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mizan_app/constants/colors.dart';
 import 'package:flutter_mizan_app/constants/contries.dart';
-import 'package:flutter_mizan_app/models/constant.dart';
+import 'package:flutter_mizan_app/constants/constant.dart';
 // import 'package:mizan_app/models/constant.dart';
 // import 'package:mizan_app/models/prmary.dart';
 
 class CurrencyExchange extends StatefulWidget {
-  CurrencyExchange({super.key});
+  const CurrencyExchange({super.key});
 
   @override
   State<CurrencyExchange> createState() => _CurrencyExchangeState();

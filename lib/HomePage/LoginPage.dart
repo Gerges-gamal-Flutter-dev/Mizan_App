@@ -1,10 +1,9 @@
 // ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
+import 'package:flutter_mizan_app/Cache/cache_helper.dart';
 import 'package:flutter_mizan_app/HomePage/HomePage.dart';
 import 'package:flutter_mizan_app/HomePage/signup.dart';
 import 'package:flutter_mizan_app/classes/ResponsiveScreen.dart';
-import 'package:flutter_mizan_app/classes/Services%20.dart';
 import 'package:flutter_mizan_app/constants/colors.dart';
 import 'package:flutter_mizan_app/constants/contries.dart';
 
@@ -262,11 +261,11 @@ class _LoginPageState extends State<LoginPage> {
   void _login() {
     if (_key.currentState!.validate() && _country != null) {
       // حفظ البيانات في الخدمات
-      Services.saveData(key: 'name', value: _name.text.trim());
-      Services.saveData(key: 'email', value: _email.text.trim());
-      Services.saveData(key: 'monthlySalary', value: _monthlySalary);
-      Services.saveData(key: 'bankIncome', value: _bankIncome);
-      Services.saveData(key: 'country', value: _country?.trim());
+      CacheHelper.saveData(key: 'name', value: _name.text.trim());
+      CacheHelper.saveData(key: 'email', value: _email.text.trim());
+      CacheHelper.saveData(key: 'monthlySalary', value: _monthlySalary);
+      CacheHelper.saveData(key: 'bankIncome', value: _bankIncome);
+      CacheHelper.saveData(key: 'country', value: _country?.trim());
 
       // الانتقال إلى الصفحة الرئيسية بعد النجاح
       Navigator.pushReplacement(
